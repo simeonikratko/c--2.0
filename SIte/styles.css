@@ -1,12 +1,26 @@
 body {
     background-color: #5CDB95;
 }
-#header  {
-    color: #05386B
-}
 #container {
     background-color: #379683;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
-#header {
-    background-color: #8EE4AF
+#header  {
+    background-color: #8EE4AF;
+    color: #05386B;
+    text-align: center;
+    
+}
+#content {
+    width: 320px;
+    float: left;
+}
+#about {
+    width: 600;
+    float: right;
+}
+#footer {
+    clear: both;
 }
