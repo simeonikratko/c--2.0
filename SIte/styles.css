@@ -12,10 +12,26 @@ a {
 }
 #container {
     background-color: #379683;
-    width: 800px;
+    width: auto;
     margin-left: auto;
     margin-right: auto;
 }
+button {
+    font-family: basis;
+    background-color: #05386B;
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+}
+
 #header  {
     background-color: #8EE4AF;
     color: #05386B;
@@ -24,6 +40,9 @@ a {
 }
 h1, h2, h3{
     margin: 0;
+}
+p {
+    margin 10px;
 }
 #content {
     width: 320px;
@@ -35,8 +54,9 @@ h1, h2, h3{
 }
 #content ul {
     list-style-type: none;
-    padding: 0px;
+    padding: 10px;
 }
+
 #about {
     width: 600;
     float: right;
