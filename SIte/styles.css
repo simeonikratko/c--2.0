@@ -64,13 +64,20 @@ table {
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
- 
-}
+
+tr:nth-child(even)
+ {background-color: #4cb97d;}
+
+ th {
+    background-color: #0fe26e;
+    color: black;
+  }
 #content ul {
     list-style-type: none;
     padding: 10px;
     background-color: #379683;
 }
+
 
 #about {
     width: 600;
