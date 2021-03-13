@@ -38,8 +38,10 @@ button {
     text-align: center;
     
 }
-h1, h2, h3{
-    margin: 0;
+
+h1, h2, h3, h4{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 p {
     margin 10px;
