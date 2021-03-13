@@ -62,16 +62,16 @@ table {
   th, td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid beige;
   }
 
-tr:nth-child(even)
- {background-color: #4cb97d;}
+tr:nth-child(odd)
+ {background-color: #8EE4AF;}
 
- th {
-    background-color: #0fe26e;
-    color: black;
-  }
+tr:nth-child(1)
+{background-color: #05386B}
+
+
 #content ul {
     list-style-type: none;
     padding: 10px;
