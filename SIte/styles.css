@@ -3,15 +3,16 @@
     font-family: basis;
 }
 body {
-    background-color: #5CDB95;
+    background-color: transparent;
     font-family: basis;
+    background-image: url("media/background.jpg");
 }
 a {
     text-decoration: none;
     color: #05386B;
 }
 #container {
-    background-color: #379683;
+    background-color:transparent;
     width: auto;
     margin-left: auto;
     margin-right: auto;
@@ -37,9 +38,10 @@ button:hover{
 }
 
 #header  {
-    background-color: #8EE4AF;
+    background-color: transparent;
     color: #05386B;
     text-align: center;
+    
     
 }
 
