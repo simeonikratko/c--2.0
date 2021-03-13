@@ -57,6 +57,7 @@ p {
 #content ul {
     list-style-type: none;
     padding: 10px;
+    background-color: #379683;
 }
 
 #about {
