@@ -1,5 +1,14 @@
+@font-face{
+    src: url(fonts/basis33.ttf);
+    font-family: basis;
+}
 body {
     background-color: #5CDB95;
+    font-family: basis;
+}
+a {
+    text-decoration: none;
+    color: #05386B;
 }
 #container {
     background-color: #379683;
@@ -13,9 +22,20 @@ body {
     text-align: center;
     
 }
+h1, h2, h3{
+    margin: 0;
+}
 #content {
     width: 320px;
     float: left;
+}
+
+#content .selected {
+    font-weight: bold;
+}
+#content ul {
+    list-style-type: none;
+    padding: 0px;
 }
 #about {
     width: 600;
@@ -23,4 +43,8 @@ body {
 }
 #footer {
     clear: both;
+    padding: 10px;
+    background-color: #EDF5E1;
+    color: #05386B;
+    text-align: right;
 }
