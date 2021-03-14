@@ -67,11 +67,7 @@ table {
     border-bottom: 1px solid beige;
   }
 
-tr:nth-child(odd)
- {background-color: #8EE4AF;}
 
-tr:nth-child(1)
-{background-color: #05386B}
 
 
 #content ul {
