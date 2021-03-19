@@ -21,18 +21,24 @@ public class Frenski : MonoBehaviour
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
     [SerializeField] float jumpPower = 500;
+    [SerializeField] int totalJumps;
+    int availableJumps;
 
     bool isGrounded = false;
     bool isRunning = false;
     bool facingRight = true;
-    bool jump;
     bool CrouchPressed;
+    bool multipleJump;
+    bool coyoteJump;
     #endregion
 
     void Awake()
     {
+        #region Things that we do at the start of the game
+        availableJumps = totalJumps;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        #endregion
     }
 
     void Update()
@@ -61,14 +67,7 @@ public class Frenski : MonoBehaviour
         //if (Input.GetButtonDown("Jump"))
         if (Input.GetKeyDown("w"))
         {
-            jump = true;
-            animator.SetBool("Jump", true);
-        }
-        //Otherwise disable it
-        //else if (Input.GetButtonUp("Jump"))
-        else if (Input.GetKeyUp("w"))
-        {
-            jump = false;
+            Jump();
         }
         #endregion
         #region Crouch button
@@ -89,13 +88,16 @@ public class Frenski : MonoBehaviour
 
     void FixedUpdate()
     {
+        #region Things that we do multiple times in a fixed period of time
         GroundCheck();
-        Move(horizontalValue, jump, CrouchPressed);
+        Move(horizontalValue, CrouchPressed);
+        #endregion
     }
 
     void GroundCheck()
     {
         #region Grounded
+        bool wasGrounded = isGrounded;
         isGrounded = false;
         //Check if the GroundCheckObject is coliding with other 2D coliders that are in the "Ground" later
         //If yes(isGrounded true) else (isGrounded false)
@@ -103,16 +105,75 @@ public class Frenski : MonoBehaviour
         if(colliders.Length > 0)
         {
             isGrounded = true;
+            if (!wasGrounded)
+            {
+                //When we fall this stops it to jump
+                multipleJump = false;
+
+                availableJumps = totalJumps;
+            }
+        }
+        else
+        {
+            if (wasGrounded)
+            {
+                StartCoroutine(CoyoteJumpDelay());
+            }
         }
         //As long as we are grounded the "Jump" bool in the animator is disabled
         animator.SetBool("Jump", !isGrounded);
         #endregion
     }
 
-    void Move(float dir, bool jumpFlag, bool crouchFlag)
+    IEnumerator CoyoteJumpDelay()
     {
-        #region Jump & Crouch
+        #region Coyote Jump Time
+        coyoteJump = true;
+        yield return new WaitForSeconds(0.2f);
+        coyoteJump = true;
+        #endregion
+    }
+
+    void Jump()
+    {
+        #region Multiple Jump & Coyote Jump
+        if (isGrounded)
+        {
+            multipleJump = true;
+            availableJumps--;
+
+            rb.velocity = Vector2.up * jumpPower;
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            if (coyoteJump && availableJumps > 0)
+            {
+                multipleJump = true;
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+                //Debug.Log("Coyote Jump");
+            }
+            if (multipleJump && availableJumps > 0)
+            {
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+            }
+        }
+        #endregion
+    }
+
+    void Move(float dir, bool crouchFlag)
+    {
+        #region Crouch
         //If we are crouching and disabled crouching check overhead for collision with Ground items If there are any, remain crouched, otherwise un-crouch
+        //If we press Crouch we disable the standing collider + animate crouching
+        //Reduce the speed
+        //If released resume the original speed + enable the standing collider + disable crouch animation
         if (!crouchFlag)
         {
             if (Physics2D.OverlapCircle(overheadCheckCollider.position, overheadCheckRadius, groundLayer))
@@ -120,23 +181,8 @@ public class Frenski : MonoBehaviour
                 crouchFlag = true;
             }
         }
-
-        //If we press Crouch we disable the standing collider + animate crouching
-        //Reduce the speed
-        //If released resume the original speed + enable the standing collider + disable crouch animation
-        if (isGrounded)
-        {
-            standingCollider.enabled = !crouchFlag;
-            //If the player is grounded and pressed space Jump
-            if (jumpFlag)
-            {
-                //isGrounded = false;
-                jumpFlag = false;
-                //Add jump force
-                rb.AddForce(new Vector2(0f, jumpPower));
-            }
-        }
         animator.SetBool("Crouch", crouchFlag);
+        standingCollider.enabled = !crouchFlag;
         #endregion
         #region Move & Run
         //Set value of x using dir and speed
