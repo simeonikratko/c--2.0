@@ -3,41 +3,119 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <title>Carbon</title>
+    <style>
+
+        body{
+          padding: 0;
+          margin: 0;
+      
+        }
+      
+        table{
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 800px;
+          height: 200px;
+          border: 1px solid #bdc3c7;
+          box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px 1px 8px rgba(0, 0, 0, 0.2);
+          
+        }
+        tr {
+          transition: all .2s ease-in;
+          cursor: pointer;
+        }
+      
+        th,td{
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+        #header{
+          background-color: #16a085;
+          color: #fff;
+        }
+      
+        h1{
+          font-weight: 600;
+          text-align: center;
+          background-color: #16a085;
+          color: #fff
+          padding: 10px 0px;
+        }
+      
+        tr:hover{
+          background-color: #98fbc5;
+          transform: scale(1.02);
+          box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px 1px 8px rgba(0, 0, 0, 0.2);
+        }
+        @media only screen and (max-width: 768px){
+          table{
+            width: 90%;
+          }
+        }
+      
+      </style>
+
 </head>
 <body>
-    <div>
-        <h1>Как да намалим въглеродния отпечатък?</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam quisquam optio maiores cupiditate architecto sint incidunt voluptate, enim facere molestiae labore ea qui suscipit consequatur eveniet error necessitatibus dolorem numquam eligendi similique quis! Aliquam alias id nostrum minima dignissimos nulla ut expedita repudiandae adipisci? Inventore ab consequatur possimus architecto cum!</p>
-    </div>
-    <div id ="reducecarbonuse">
-        <h2>Ето няколко неща, които може да направите, за да намалите своя въглероден отпечатък</h2>
-        <div>
-            <h3>1. Използвайте торбички за многократна употреба, когато пазарувате</h3>
-            <a href="https://www.wikihow.com/Make-a-Simple-Cloth-Bag" target=_blank>
-            <img src="./media/bag.jpg" alt="reusable bag" >
-            </a>
-            <p>Така не само намаляте и употребата на пластмаса, но и въглерода, който се отделя за направата на пликче за еднократна употреба. Ако натиснете снимката, ще разберете как да направите сами такава торбичка. </p>
-
-        </div>
-
-        <div>
-            <h3>2. Купувайте регионална храна</h3>
-            <p>Транспортирането на храни, от далечни места изразходва гориво, което замърсява въздуха. Вместо да си купите краставици от Гърция, може да вземете от същите краставици с може би по-добро качество от някой пазар. Така също подкрепяте личния бизнес.</p>
-            <img src="media/cucumbers.jpg" alt="cucumbers">
-        </div>
-        <div>
-            <h3>3. Изключвайте светлините, когато не сте в някоя стая</h3>
-            <h3>4. Къпете се с по-студена вода</h3>
-            <p>Това може да спести около 250 килограма CO2 на година</p>
-            <h3>5. Взимайте си по-къси душове</h3>
-            <p>Докато сме на темата за душовете, защо просто всички да не си взимаме по-кратки душове? Пестим както и пари, така и опазваме природата.</p>
-        </div>
-        <div>
-            <h2>За повече информация по темата, как да намалим въглеродния отпечатък натисни тук:</h2>
-            <a href="https://blogs.ei.columbia.edu/2018/12/27/35-ways-reduce-carbon-footprint/" target = _blank>Tuk shte ima buton</a>
-        </div>
-
-    </div>
-
+    <div id="container">
+        <div id ="">
+          <h1>Как да намалим карбоновият си отпечатък?</h1>
+          
+      </div>
+      <div>
+          <hr>
+    
+          <table>
+            <tr id="header">
+              <th>Предмет</th>
+              <th>Време за разграждане</th>
+              <th>Алтернатива</th>
+            </tr>
+    
+            <tr>
+              <td>Пластмасова бутилка</td>
+              <td>500 години</td>
+              <td>Изполвайте бутилки за многократна употреба(пропръчително стъклени)</td>
+              
+            </tr>
+    
+            <tr>
+              <td>Пластмасово пликче</td>
+              <td>400 години</td>
+              <td>Изполвайте хартиени торбички или още по-добре торби за многократна употреба</td>
+              
+            </tr>
+    
+            <tr>
+              <td>Сламка за еднократна употреба</td>
+              <td>200 години</td>
+              <td>Закупете си метална или сламка от материал, който може да бъде използван многократно. Най-добрият вариант е въобще да не ползвате сламки</td>
+              
+            </tr>
+    
+            <tr>
+              <td>Четка за зъби</td>
+              <td>500 години</td>
+              <td>Да не си миете зъбите очевидно не е вариант. Препоръчваме да си купите бамбукова или дървена четка от някой био магазин.</td>
+              
+            </tr>
+    
+            <tr>
+              <td>Пластмасови прибори за хранене</td>
+              <td>400 години</td>
+              <td>Използвайте метални или дървени прибори)</td>
+              
+            </tr>
+            <tr>
+              <td>Чаша за еднократна употреба</td>
+              <td>100 години</td>
+              <td>Можете да си закупите пластмасови или стъклени чаши за многократна употрба, вместо да замърсявате природата.</td>
+              
+            </tr>
+          </table>
+          
 </body>
 </html>
