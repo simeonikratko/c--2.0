@@ -7,7 +7,7 @@
 
 }
 nav{
-    background: #16a085;
+    background: #F5785A;
     height: 80px;
     width: 100%;
 }
@@ -36,7 +36,7 @@ nav ul li a{
     text-transform: uppercase;
 }
 a.active,a:hover{
-    background: #1b9bff;
+    background: #FFA812	;
     transition: .5s;
 }
 .checkbtn{
@@ -83,7 +83,7 @@ a.active,a:hover{
     }
     a:hover,a.active{
         background: none;
-        color: #0082e6;
+        color: #FFA812;
     }
     #check:checked ~ ul{
         left: 0;

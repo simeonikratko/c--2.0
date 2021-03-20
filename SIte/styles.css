@@ -5,7 +5,7 @@
 body {
     background-color: transparent;
     font-family: basis;
-    background-image: url("media/background.jpg");
+    background-image: url("media/macos.jpg");
 }
 a {
     text-decoration: none;
@@ -19,7 +19,7 @@ a {
 }
 button {
     font-family: basis;
-    background-color: #05386B;
+    background-color: #EE4000;
     border: none;
     color: white;
     padding: 10px 22px;
