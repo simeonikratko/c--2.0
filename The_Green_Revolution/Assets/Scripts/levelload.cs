@@ -21,7 +21,7 @@ public class levelload : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        #region Entering the new level
         GameObject collisionGameObject = collision.gameObject;
 
         if (collisionGameObject.name == "Frenski")
@@ -30,15 +30,15 @@ public class levelload : MonoBehaviour
             LoadScene();
 
         }
-
+        #endregion
     }
 
 
     void LoadScene()
     {
-
+        #region Load next level
         SceneManager.LoadScene(ileveltoload);
-
+        #endregion
     }
 
 }

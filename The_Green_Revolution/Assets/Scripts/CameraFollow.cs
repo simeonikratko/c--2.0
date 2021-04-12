@@ -2,11 +2,13 @@
 
 public class CameraFollow : MonoBehaviour
 {
+    #region Fields
     public Transform target;
     public Vector3 offset;
     [Range(1, 10)]
     public float smoothFactor;
     public Vector3 minValues, maxValue;
+    #endregion
 
     private void FixedUpdate()
     {
@@ -15,6 +17,7 @@ public class CameraFollow : MonoBehaviour
 
     void Follow()
     {
+        #region Camera Follow
         Vector3 targetPosition = target.position + offset;
         //Verify if the targetPosition is out of bound or not
         //Limit to the min and max values
@@ -25,5 +28,6 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 smoothPosition = Vector3.Lerp(transform.position, boundPosition, smoothFactor * Time.fixedDeltaTime);
         transform.position = smoothPosition;
+        #endregion
     }
 }

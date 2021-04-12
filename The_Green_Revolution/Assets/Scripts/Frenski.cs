@@ -10,10 +10,10 @@ public class Frenski : MonoBehaviour
     #region Private Fields
     Rigidbody2D rb;
     Animator animator;
-    [SerializeField] Collider2D standingCollider;
-    [SerializeField] Transform groundCheckCollider;
-    [SerializeField] Transform overheadCheckCollider;
-    [SerializeField] LayerMask groundLayer;
+    public Collider2D standingCollider, crouchingCollider;
+    public Transform groundCheckCollider;
+    public Transform overheadCheckCollider;
+    public LayerMask groundLayer;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
@@ -30,6 +30,7 @@ public class Frenski : MonoBehaviour
     bool CrouchPressed;
     bool multipleJump;
     bool coyoteJump;
+    bool isDead = false;
     #endregion
 
     void Awake()
@@ -43,6 +44,12 @@ public class Frenski : MonoBehaviour
 
     void Update()
     {
+        #region Can the player move
+        if (CanMove() == false)
+        {
+            return;
+        }
+        #endregion
         #region Move button
         //Set the yVelocity in the animator
         animator.SetFloat("yVelocity", rb.velocity.y);
@@ -94,6 +101,37 @@ public class Frenski : MonoBehaviour
         #endregion
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        #region Gizmos
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(groundCheckCollider.position, groundCheckRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(overheadCheckCollider.position, overheadCheckRadius);
+        #endregion
+    }
+
+    bool CanMove()
+    {
+        #region Situations where the player can't move
+        bool can = true;
+
+        if (FindObjectOfType<InteractionSystem>().isExamining)
+        {
+            can = false;
+        }
+        if (FindObjectOfType<InventorySystem>().isOpen)
+        {
+            can = false;
+        }
+        if (isDead)
+        {
+            can = false;
+        }
+        return can;
+        #endregion
+    }
+
     void GroundCheck()
     {
         #region Grounded
@@ -111,6 +149,9 @@ public class Frenski : MonoBehaviour
                 multipleJump = false;
 
                 availableJumps = totalJumps;
+
+                //Debug.Log("Landed");
+                //AudioManager.instance.PlaySFX("landing");
             }
         }
         else
@@ -183,6 +224,8 @@ public class Frenski : MonoBehaviour
         }
         animator.SetBool("Crouch", crouchFlag);
         standingCollider.enabled = !crouchFlag;
+        crouchingCollider.enabled = crouchFlag;
+
         #endregion
         #region Move & Run
         //Set value of x using dir and speed
@@ -220,5 +263,11 @@ public class Frenski : MonoBehaviour
         //Set the float xVelocity according to the x value of the Rigidbody velocity
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        FindObjectOfType<LevelManager>().Restart();
     }
 }
