@@ -14,10 +14,12 @@ public class TrapObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        #region Check if the layer touch it 
+        if (collision.tag == "Player")
         {
             Debug.Log($"{name} Triggered");
             FindObjectOfType<HealthBar>().LoseHealth(decayAmount);
         }
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
 
     public void LoseHealth(int value)
     {
+        #region Losing health
         //Do nothing if you are out of health
         if (health <= 0)
             return;
@@ -20,13 +21,16 @@ public class HealthBar : MonoBehaviour
         {
             FindObjectOfType<Frenski>().Die();
         }
+        #endregion
     }
 
     private void Update()
     {
+        #region Lose health Button
         if (Input.GetKeyDown(KeyCode.Return))
         {
             LoseHealth(25);
         }
+        #endregion
     }
 }

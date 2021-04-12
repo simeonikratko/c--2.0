@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class Frenski : MonoBehaviour
 {
-    #region Public Fields
+    #region Fields
     public float speed = 1;
-    #endregion
-    #region Private Fields
     Rigidbody2D rb;
     Animator animator;
     public Collider2D standingCollider, crouchingCollider;
     public Transform groundCheckCollider;
     public Transform overheadCheckCollider;
     public LayerMask groundLayer;
+    public Transform wallCheckCollider;
+    public LayerMask wallLayer;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
+    const float wallCheckRadius = 0.2f;
     float horizontalValue;
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
     [SerializeField] float jumpPower = 500;
-    [SerializeField] int totalJumps;
+    [SerializeField] float slideFactor = 0.2f;
+    public int totalJumps;
     int availableJumps;
 
     bool isGrounded = false;
@@ -30,6 +32,7 @@ public class Frenski : MonoBehaviour
     bool CrouchPressed;
     bool multipleJump;
     bool coyoteJump;
+    bool isSliding;
     bool isDead = false;
     #endregion
 
@@ -90,6 +93,9 @@ public class Frenski : MonoBehaviour
         {
             CrouchPressed = false;
         }
+        #endregion
+        #region Check if we are touching a wall to slide on it
+        WallCheck();
         #endregion
     }
 
@@ -163,6 +169,39 @@ public class Frenski : MonoBehaviour
         }
         //As long as we are grounded the "Jump" bool in the animator is disabled
         animator.SetBool("Jump", !isGrounded);
+        #endregion
+    }
+
+    void WallCheck()
+    {
+        #region Wall Check
+        //If we are touching a wall and we are moving towards the wall and we are falling and we are not grounded
+        //Slide on the wall
+        if (Physics2D.OverlapCircle(wallCheckCollider.position, wallCheckRadius, wallLayer) && Mathf.Abs(horizontalValue) > 0 && rb.velocity.y < 0 && !isGrounded)
+        {
+            if (!isSliding)
+            {
+                availableJumps = totalJumps;
+                multipleJump = false;
+            }
+
+            Vector2 v = rb.velocity;
+            v.y = -slideFactor;
+            rb.velocity = v;
+            isSliding = true;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+            }
+        }
+        else
+        {
+            isSliding = false;
+        }
         #endregion
     }
 
@@ -267,7 +306,9 @@ public class Frenski : MonoBehaviour
 
     public void Die()
     {
+        #region Die
         isDead = true;
         FindObjectOfType<LevelManager>().Restart();
+        #endregion
     }
 }
