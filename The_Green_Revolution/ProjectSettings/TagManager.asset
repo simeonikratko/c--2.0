@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FlyingEnemy
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

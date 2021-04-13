@@ -27,10 +27,10 @@ public class HealthBar : MonoBehaviour
     private void Update()
     {
         #region Lose health Button
-        if (Input.GetKeyDown(KeyCode.Return))
+        /*if (Input.GetKeyDown(KeyCode.Return))
         {
             LoseHealth(25);
-        }
+        }*/
         #endregion
     }
 }

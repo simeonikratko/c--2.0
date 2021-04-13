@@ -159,9 +159,21 @@ public class Frenski : MonoBehaviour
                 //Debug.Log("Landed");
                 //AudioManager.instance.PlaySFX("landing");
             }
+            //Check if any of the colliders is moving platform
+            //Parent it to this platform
+            foreach(var c in colliders)
+            {
+                if(c.tag == "MovingPlatform")
+                {
+                    transform.parent = c.transform;
+                }
+            }
         }
         else
         {
+            //Unparent the transform
+            transform.parent = null;
+
             if (wasGrounded)
             {
                 StartCoroutine(CoyoteJumpDelay());
