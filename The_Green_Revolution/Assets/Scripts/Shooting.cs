@@ -7,11 +7,20 @@ public class Shooting : MonoBehaviour
     public Transform shootingPoint;
     public bool canShoot = true;
     public Animator animator;
+    float currentTime = 0f;
+    float startingTime = 0.5f;
+
+    void Start()
+    {
+        currentTime = startingTime;
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        currentTime -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Return) && currentTime <= 0)
         {
+            currentTime = startingTime;
             Shoot();
         }
     }

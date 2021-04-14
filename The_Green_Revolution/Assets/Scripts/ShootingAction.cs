@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class ShootingAction : MonoBehaviour
+public class BushAction : MonoBehaviour
 {
     public UnityEvent action;
 

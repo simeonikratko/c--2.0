@@ -3,6 +3,7 @@
 public class ShootingItem : MonoBehaviour
 {
     public float speed;
+    int decayAmount = 25;
 
     private void Update()
     {
@@ -13,6 +14,12 @@ public class ShootingItem : MonoBehaviour
     {
         if (collision.tag == "Player")
             return;
+
+        /*if (collision.tag == "FlyingEnemy")
+        {
+            FindObjectOfType<BlackCloud>().LoseHealth(decayAmount);
+            //GameObject.SetActive = false;
+        }*/
 
         //Trigger the custom action on the other object IF IT EXISTS
         if (collision.GetComponent<ShootingAction>())

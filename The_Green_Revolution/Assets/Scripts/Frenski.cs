@@ -5,6 +5,7 @@ using UnityEngine;
 public class Frenski : MonoBehaviour
 {
     #region Fields
+    public GameObject parent;
     public float speed = 1;
     Rigidbody2D rb;
     Animator animator;
@@ -25,7 +26,7 @@ public class Frenski : MonoBehaviour
     [SerializeField] float slideFactor = 0.2f;
     public int totalJumps;
     int availableJumps;
-
+    
     bool isGrounded = false;
     bool isRunning = false;
     bool facingRight = true;
@@ -34,7 +35,43 @@ public class Frenski : MonoBehaviour
     bool coyoteJump;
     bool isSliding;
     bool isDead = false;
+
+    float currentTime1 = 0f;
+    float startingTime1 = 10f;
+    float currentTime1f = 0f;
+    float startingTime1f = 1f;
+
+    float currentTime2 = 0f;
+    float startingTime2 = 10f;
+
+    float currentTime3 = 0f;
+    float startingTime3 = 10f;
+
+    float currentTime4 = 0f;
+    float startingTime4 = 10f;
+
+    float currentTime5 = 0f;
+    float startingTime5 = 10f;
+
+    float currentTime6 = 0f;
+    float startingTime6 = 10f;
+
+    float currentTime7 = 0f;
+    float startingTime7 = 10f;
+
+    float currentTime8 = 0f;
+    float startingTime8 = 10f;
+
+    float currentTime9 = 0f;
+    float startingTime9 = 10f;
     #endregion
+
+    void Start()
+    {
+        //currentTime1 = startingTime1;
+        //currentTime1f = startingTime1f;
+        //currentTime2 = startingTime2;
+    }
 
     void Awake()
     {
@@ -97,12 +134,104 @@ public class Frenski : MonoBehaviour
         #region Check if we are touching a wall to slide on it
         WallCheck();
         #endregion
+        #region Special Abilities buttons
+
+        #region Friendly Bush button
+        currentTime1 -= 1 * Time.deltaTime;
+        currentTime1f -= 1 * Time.deltaTime;
+
+        if (Input.GetKeyDown("1") && currentTime1 <= 0)
+        {
+            currentTime1 = startingTime1;
+            FriendlyBush();
+            currentTime1f = startingTime1f;
+        }
+        
+        if (currentTime1f <= 0)
+        {
+            parent.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        #endregion
+
+        #region Spikes Time button
+        currentTime2 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("2") && currentTime2 <= 0)
+        {
+            currentTime2 = startingTime2;
+            SpikesTime();
+        }
+        #endregion
+
+        #region Nature’s Revenge button
+        currentTime3 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("3") && currentTime3 <= 0)
+        {
+            currentTime3 = startingTime3;
+            NatureRevenge();
+        }
+        #endregion
+
+        #region Fast as the wind button
+        currentTime4 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("4") && currentTime4 <= 0)
+        {
+            currentTime4 = startingTime4;
+            FastAsTheWind();
+        }
+        #endregion
+
+        #region Mighty Winds button
+        currentTime5 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("5") && currentTime5 <= 0)
+        {
+            currentTime5 = startingTime5;
+            MightyWinds();
+        }
+        #endregion
+
+        #region Stormy Place button
+        currentTime6 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("6") && currentTime6 <= 0)
+        {
+            currentTime6 = startingTime6;
+            StormyPlace();
+        }
+        #endregion
+
+        #region Healing Waters button
+        currentTime7 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("7") && currentTime7 <= 0)
+        {
+            currentTime7 = startingTime7;
+            HealingWaters();
+        }
+        #endregion
+
+        #region Frostbite button
+        currentTime8 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("8") && currentTime8 <= 0)
+        {
+            currentTime8 = startingTime8;
+            Frostbite();
+        }
+        #endregion
+
+        #region Tsunami button
+        currentTime9 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("9") && currentTime9 <= 0)
+        {
+            currentTime9 = startingTime9;
+            Tsunami();
+        }
+        #endregion
+
+        #endregion
     }
 
     void FixedUpdate()
     {
         #region Things that we do multiple times in a fixed period of time
-        GroundCheck();
+        GroundCheck(horizontalValue);
         Move(horizontalValue, CrouchPressed);
         #endregion
     }
@@ -138,7 +267,7 @@ public class Frenski : MonoBehaviour
         #endregion
     }
 
-    void GroundCheck()
+    void GroundCheck(float dir)
     {
         #region Grounded
         bool wasGrounded = isGrounded;
@@ -173,6 +302,23 @@ public class Frenski : MonoBehaviour
         {
             //Unparent the transform
             transform.parent = null;
+            /*if (transform.localScale != new Vector3(-3, 3, 1))
+            {
+                transform.localScale = new Vector3(3, 3, 1);
+            }
+            //If looking right and clicked left(flip to the left)
+            if (facingRight && dir < 0)
+            {
+                transform.localScale = new Vector3(-3, 3, 1);
+                facingRight = false;
+            }
+            //If looking left and clicked right(flip to the right)
+            else if (!facingRight && dir > 0)
+            {
+                transform.localScale = new Vector3(3, 3, 1);
+                facingRight = true;
+            }*/
+
 
             if (wasGrounded)
             {
@@ -323,4 +469,74 @@ public class Frenski : MonoBehaviour
         FindObjectOfType<LevelManager>().Restart();
         #endregion
     }
+
+    #region Special Abilities
+
+    #region Friendly Bush
+    public void FriendlyBush()
+    {
+        Debug.Log("Friendly Bush");
+        parent.transform.GetChild(0).gameObject.SetActive(true);
+    }
+    #endregion
+
+    #region Spikes Time
+    public void SpikesTime()
+    {
+        Debug.Log("Spikes Time");
+    }
+    #endregion
+
+    #region Nature’s Revenge
+    public void NatureRevenge()
+    {
+        Debug.Log("Nature’s Revenge");
+    }
+    #endregion
+
+    #region Fast as the wind
+    public void FastAsTheWind()
+    {
+        Debug.Log("Fast as the wind");
+    }
+    #endregion
+
+    #region Mighty Winds
+    public void MightyWinds()
+    {
+        Debug.Log("Mighty Winds");
+    }
+    #endregion
+
+    #region Stormy Place
+    public void StormyPlace()
+    {
+        Debug.Log("Stormy Place");
+    }
+    #endregion
+
+    #region Healing Waters
+    public void HealingWaters()
+    {
+        //It is in the Health Bar Script
+        Debug.Log("Healing Waters");
+        //Play animation
+    }
+    #endregion
+
+    #region Frostbite
+    public void Frostbite()
+    {
+        Debug.Log("Frostbite");
+    }
+    #endregion
+
+    #region Tsunami
+    public void Tsunami()
+    {
+        Debug.Log("Tsunami");
+    }
+    #endregion
+
+    #endregion
 }

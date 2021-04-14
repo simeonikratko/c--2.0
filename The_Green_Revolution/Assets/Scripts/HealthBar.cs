@@ -5,6 +5,20 @@ public class HealthBar : MonoBehaviour
 {
     public Image fillBar;
     public float health;
+    float currentTime7 = 0f;
+    float startingTime7 = 10f;
+
+    private void Update()
+    {
+        #region Healing waters
+        currentTime7 -= 1 * Time.deltaTime;
+        if (Input.GetKeyDown("7") && currentTime7 <= 0)
+        {
+            currentTime7 = startingTime7;
+            GainHealth(50);
+        }
+        #endregion
+    }
 
     public void LoseHealth(int value)
     {
@@ -24,13 +38,20 @@ public class HealthBar : MonoBehaviour
         #endregion
     }
 
-    private void Update()
+    public void GainHealth(int value)
     {
-        #region Lose health Button
-        /*if (Input.GetKeyDown(KeyCode.Return))
+        #region Heal
+        //Do nothing if you are out of health
+        if (health <= 0)
+            return;
+        //Increase the health
+        health += value;
+        //Refresh the UI fillBar
+        fillBar.fillAmount = health / 100;
+        if (health > 100)
         {
-            LoseHealth(25);
-        }*/
+            health = 100;
+        }
         #endregion
     }
 }
