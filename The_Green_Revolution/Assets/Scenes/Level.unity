@@ -1482,6 +1482,7 @@ GameObject:
   - component: {fileID: 457541158}
   - component: {fileID: 457541159}
   - component: {fileID: 457541160}
+  - component: {fileID: 457541161}
   - component: {fileID: 457541155}
   m_Layer: 0
   m_Name: Frenski
@@ -1612,6 +1613,7 @@ MonoBehaviour:
   jumpPower: 8.5
   slideFactor: 0.5
   totalJumps: 2
+  isFastAsTheWind: 0
 --- !u!70 &457541154
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1744,6 +1746,20 @@ MonoBehaviour:
   shootingPoint: {fileID: 480282040}
   canShoot: 1
   animator: {fileID: 457541155}
+--- !u!114 &457541161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457541149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88019a37b6abb794e86d9e47478ff20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObj: {fileID: 457541153}
+  parent: {fileID: 457541149}
 --- !u!1 &480282039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,7 +2081,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e160a2a620644cd6afef9119dad1093, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b15efeb56a6a978428cf384d981c4e7d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3595,7 +3611,7 @@ GameObject:
   - component: {fileID: 906071190}
   - component: {fileID: 906071196}
   m_Layer: 0
-  m_Name: Black
+  m_Name: Black Cloud
   m_TagString: FlyingEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3735,7 +3751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906071189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.928474, y: 3.422216, z: 140.8503}
+  m_LocalPosition: {x: 10.928474, y: 2.49, z: 140.8503}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 444506709}
@@ -11663,7 +11679,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -282803389941045344, guid: f2f788834eb441d4bb014a10024c7852,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Frenski : MonoBehaviour
 {
+    //New
     #region Fields
     public GameObject parent;
     public float speed = 1;
@@ -21,57 +22,24 @@ public class Frenski : MonoBehaviour
     const float wallCheckRadius = 0.2f;
     float horizontalValue;
     float runSpeedModifier = 2f;
+    float fastAsTheWindSpeedModifier = 1.5f;
     float crouchSpeedModifier = 0.5f;
     [SerializeField] float jumpPower = 500;
     [SerializeField] float slideFactor = 0.2f;
     public int totalJumps;
     int availableJumps;
-    
+
     bool isGrounded = false;
     bool isRunning = false;
     bool facingRight = true;
+    public bool isFastAsTheWind = false;
     bool CrouchPressed;
     bool multipleJump;
     bool coyoteJump;
     bool isSliding;
     bool isDead = false;
-
-    float currentTime1 = 0f;
-    float startingTime1 = 10f;
-    float currentTime1f = 0f;
-    float startingTime1f = 1f;
-
-    float currentTime2 = 0f;
-    float startingTime2 = 10f;
-
-    float currentTime3 = 0f;
-    float startingTime3 = 10f;
-
-    float currentTime4 = 0f;
-    float startingTime4 = 10f;
-
-    float currentTime5 = 0f;
-    float startingTime5 = 10f;
-
-    float currentTime6 = 0f;
-    float startingTime6 = 10f;
-
-    float currentTime7 = 0f;
-    float startingTime7 = 10f;
-
-    float currentTime8 = 0f;
-    float startingTime8 = 10f;
-
-    float currentTime9 = 0f;
-    float startingTime9 = 10f;
     #endregion
 
-    void Start()
-    {
-        //currentTime1 = startingTime1;
-        //currentTime1f = startingTime1f;
-        //currentTime2 = startingTime2;
-    }
 
     void Awake()
     {
@@ -134,98 +102,15 @@ public class Frenski : MonoBehaviour
         #region Check if we are touching a wall to slide on it
         WallCheck();
         #endregion
-        #region Special Abilities buttons
-
-        #region Friendly Bush button
-        currentTime1 -= 1 * Time.deltaTime;
-        currentTime1f -= 1 * Time.deltaTime;
-
-        if (Input.GetKeyDown("1") && currentTime1 <= 0)
-        {
-            currentTime1 = startingTime1;
-            FriendlyBush();
-            currentTime1f = startingTime1f;
-        }
-        
-        if (currentTime1f <= 0)
-        {
-            parent.transform.GetChild(0).gameObject.SetActive(false);
-        }
-        #endregion
-
-        #region Spikes Time button
-        currentTime2 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("2") && currentTime2 <= 0)
-        {
-            currentTime2 = startingTime2;
-            SpikesTime();
-        }
-        #endregion
-
-        #region Nature’s Revenge button
-        currentTime3 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("3") && currentTime3 <= 0)
-        {
-            currentTime3 = startingTime3;
-            NatureRevenge();
-        }
-        #endregion
-
-        #region Fast as the wind button
-        currentTime4 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("4") && currentTime4 <= 0)
-        {
-            currentTime4 = startingTime4;
-            FastAsTheWind();
-        }
-        #endregion
-
-        #region Mighty Winds button
-        currentTime5 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("5") && currentTime5 <= 0)
-        {
-            currentTime5 = startingTime5;
-            MightyWinds();
-        }
-        #endregion
-
-        #region Stormy Place button
-        currentTime6 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("6") && currentTime6 <= 0)
-        {
-            currentTime6 = startingTime6;
-            StormyPlace();
-        }
-        #endregion
-
-        #region Healing Waters button
-        currentTime7 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("7") && currentTime7 <= 0)
-        {
-            currentTime7 = startingTime7;
-            HealingWaters();
-        }
-        #endregion
-
-        #region Frostbite button
-        currentTime8 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("8") && currentTime8 <= 0)
-        {
-            currentTime8 = startingTime8;
-            Frostbite();
-        }
-        #endregion
-
-        #region Tsunami button
-        currentTime9 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("9") && currentTime9 <= 0)
-        {
-            currentTime9 = startingTime9;
-            Tsunami();
-        }
-        #endregion
-
-        #endregion
+        FindObjectOfType<SpecialAbilities>().FriendlyBushButton();
+        FindObjectOfType<SpecialAbilities>().SpikesTimeButton();
+        FindObjectOfType<SpecialAbilities>().NatureRevengeButton();
+        FindObjectOfType<SpecialAbilities>().FastAsTheWindButton();
+        FindObjectOfType<SpecialAbilities>().MightyWindsButton();
+        FindObjectOfType<SpecialAbilities>().StormyPlaceButton();
+        FindObjectOfType<SpecialAbilities>().HealingWatersButton();
+        FindObjectOfType<SpecialAbilities>().FrostbiteButton();
+        FindObjectOfType<SpecialAbilities>().TsunamiButton();
     }
 
     void FixedUpdate()
@@ -275,7 +160,7 @@ public class Frenski : MonoBehaviour
         //Check if the GroundCheckObject is coliding with other 2D coliders that are in the "Ground" later
         //If yes(isGrounded true) else (isGrounded false)
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
-        if(colliders.Length > 0)
+        if (colliders.Length > 0)
         {
             isGrounded = true;
             if (!wasGrounded)
@@ -290,9 +175,9 @@ public class Frenski : MonoBehaviour
             }
             //Check if any of the colliders is moving platform
             //Parent it to this platform
-            foreach(var c in colliders)
+            foreach (var c in colliders)
             {
-                if(c.tag == "MovingPlatform")
+                if (c.tag == "MovingPlatform")
                 {
                     transform.parent = c.transform;
                 }
@@ -427,6 +312,11 @@ public class Frenski : MonoBehaviour
         #region Move & Run
         //Set value of x using dir and speed
         float xVal = dir * speed * 100 * Time.fixedDeltaTime;
+        //If we use Fast as the wind ability multiply with the Fast as the wind modifier
+        if (isFastAsTheWind)
+        {
+            xVal *= fastAsTheWindSpeedModifier;
+        }
         //If we are running multiply with the running modifier
         if (isRunning)
         {
@@ -469,74 +359,4 @@ public class Frenski : MonoBehaviour
         FindObjectOfType<LevelManager>().Restart();
         #endregion
     }
-
-    #region Special Abilities
-
-    #region Friendly Bush
-    public void FriendlyBush()
-    {
-        Debug.Log("Friendly Bush");
-        parent.transform.GetChild(0).gameObject.SetActive(true);
-    }
-    #endregion
-
-    #region Spikes Time
-    public void SpikesTime()
-    {
-        Debug.Log("Spikes Time");
-    }
-    #endregion
-
-    #region Nature’s Revenge
-    public void NatureRevenge()
-    {
-        Debug.Log("Nature’s Revenge");
-    }
-    #endregion
-
-    #region Fast as the wind
-    public void FastAsTheWind()
-    {
-        Debug.Log("Fast as the wind");
-    }
-    #endregion
-
-    #region Mighty Winds
-    public void MightyWinds()
-    {
-        Debug.Log("Mighty Winds");
-    }
-    #endregion
-
-    #region Stormy Place
-    public void StormyPlace()
-    {
-        Debug.Log("Stormy Place");
-    }
-    #endregion
-
-    #region Healing Waters
-    public void HealingWaters()
-    {
-        //It is in the Health Bar Script
-        Debug.Log("Healing Waters");
-        //Play animation
-    }
-    #endregion
-
-    #region Frostbite
-    public void Frostbite()
-    {
-        Debug.Log("Frostbite");
-    }
-    #endregion
-
-    #region Tsunami
-    public void Tsunami()
-    {
-        Debug.Log("Tsunami");
-    }
-    #endregion
-
-    #endregion
 }

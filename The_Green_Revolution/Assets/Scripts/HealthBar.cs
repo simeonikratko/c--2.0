@@ -8,18 +8,6 @@ public class HealthBar : MonoBehaviour
     float currentTime7 = 0f;
     float startingTime7 = 10f;
 
-    private void Update()
-    {
-        #region Healing waters
-        currentTime7 -= 1 * Time.deltaTime;
-        if (Input.GetKeyDown("7") && currentTime7 <= 0)
-        {
-            currentTime7 = startingTime7;
-            GainHealth(50);
-        }
-        #endregion
-    }
-
     public void LoseHealth(int value)
     {
         #region Losing health
