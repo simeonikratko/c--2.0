@@ -15,7 +15,13 @@ public class Frenski : MonoBehaviour
     public Transform overheadCheckCollider;
     public LayerMask groundLayer;
     public Transform wallCheckCollider;
+    public Transform attackPoint;
+    public float attackRange = 2;
     public LayerMask wallLayer;
+    public LayerMask enemyLayers;
+    public int attackDamage = 40;
+    float nextAttackTime = 0f;
+    public float attackRate = 2f;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
@@ -102,6 +108,7 @@ public class Frenski : MonoBehaviour
         #region Check if we are touching a wall to slide on it
         WallCheck();
         #endregion
+        #region Special abilities buttons
         FindObjectOfType<SpecialAbilities>().FriendlyBushButton();
         FindObjectOfType<SpecialAbilities>().SpikesTimeButton();
         FindObjectOfType<SpecialAbilities>().NatureRevengeButton();
@@ -111,6 +118,15 @@ public class Frenski : MonoBehaviour
         FindObjectOfType<SpecialAbilities>().HealingWatersButton();
         FindObjectOfType<SpecialAbilities>().FrostbiteButton();
         FindObjectOfType<SpecialAbilities>().TsunamiButton();
+        #endregion
+        if(Time.time >= nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -128,6 +144,11 @@ public class Frenski : MonoBehaviour
         Gizmos.DrawSphere(groundCheckCollider.position, groundCheckRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(overheadCheckCollider.position, overheadCheckRadius);
+        if(attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawSphere(attackPoint.position, attackRange);
         #endregion
     }
 
@@ -359,4 +380,19 @@ public class Frenski : MonoBehaviour
         FindObjectOfType<LevelManager>().Restart();
         #endregion
     }
+
+    void Attack()
+    {
+        //Play an attack animation
+        animator.SetTrigger("Attack");
+        //Detect enemies in the range of attack
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        //Damage them
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("We hit " + enemy.name);
+            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+        }
+    }
+
 }

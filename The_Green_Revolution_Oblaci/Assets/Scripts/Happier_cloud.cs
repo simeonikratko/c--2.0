@@ -33,7 +33,7 @@ public class Happier_cloud : MonoBehaviour
         currentTime -= 1 * Time.deltaTime;
         if (currentTime <= 0)
         {
-            if ((random.Next(1, 10) % random.Next(1, 10)) == 0)
+            if ((random.Next(1, 5) % random.Next(1, 5)) == 0)
             {
                 if (bad)
                 {
