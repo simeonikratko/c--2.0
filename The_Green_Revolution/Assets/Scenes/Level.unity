@@ -132,8 +132,10 @@ GameObject:
   - component: {fileID: 33545955}
   - component: {fileID: 33545954}
   - component: {fileID: 33545956}
+  - component: {fileID: 33545958}
+  - component: {fileID: 33545957}
   m_Layer: 0
-  m_Name: happy-cloud
+  m_Name: Keyaruga
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +201,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.858474, y: 3.132216, z: 140.8503}
   m_LocalScale: {x: 4, y: 4, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1330312620}
   m_Father: {fileID: 444506709}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -213,7 +216,7 @@ Animator:
   m_GameObject: {fileID: 33545953}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c9ff516b2a816b4e9e7aad52c78aac0, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0df7faf05dd0864c8fad00ea16032af, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -222,6 +225,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &33545957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33545953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19feae7c58d1de945a4843762bbbfe5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  lineOfSite: 9
+  shootingRange: 4
+  fireRate: 1
+  bullet: {fileID: 3525512579399606190, guid: a77fdc14556e3b746b635f5f863f8cd4, type: 3}
+  bulletParent: {fileID: 1330312619}
+  bad: 0
+--- !u!58 &33545958
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33545953}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &39991112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457541149}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.9, y: 1.68, z: 0}
+  m_LocalPosition: {x: -3.59, y: 3.16, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 2082088921}
@@ -1697,7 +1735,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 457541149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6445760d7e99a4f94e962743af1563, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a3d626bda02c7f4898670ccb18f6aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 457541149}
@@ -1711,7 +1749,7 @@ MonoBehaviour:
     m_Bits: 256
   wallCheckCollider: {fileID: 2093740585}
   attackPoint: {fileID: 1650450768}
-  attackRange: 1.5
+  attackRange: 2
   wallLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -1721,7 +1759,7 @@ MonoBehaviour:
   attackDamage: 40
   attackRate: 2
   jumpPower: 8.5
-  slideFactor: 0.5
+  slideFactor: 0.2
   totalJumps: 2
   isFastAsTheWind: 0
 --- !u!70 &457541154
@@ -3766,7 +3804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52271abadbe35a94783dbfe8684316d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
   lineOfSite: 8
 --- !u!58 &906071192
 CircleCollider2D:
@@ -3903,7 +3941,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 906071189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a29aa6bc94cabfc4f9108a2a797f3ff9, type: 3}
+  m_Script: {fileID: 11500000, guid: aab55aff2d34ff544a1db2dc5729a906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 906071193}
@@ -4796,6 +4834,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1329604763}
   m_CullTransparentMesh: 0
+--- !u!1 &1330312619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1330312620}
+  m_Layer: 0
+  m_Name: BulletParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1330312620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330312619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 33545955}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1358885528
 GameObject:
   m_ObjectHideFlags: 0
